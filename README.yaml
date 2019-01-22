@@ -1,0 +1,117 @@
+---
+#
+# This is the canonical configuration for the `README.md`
+# Run `make readme` to rebuild the `README.md`
+#
+
+# Name of this project
+name: terraform-aws-kops-efs
+
+# Tags of this project
+tags:
+  - aws
+  - terraform
+  - terraform-modules
+  - kops-kubernetes
+  - kops
+  - kubernetes
+  - efs
+  - efs-provider
+  - route53
+  - iam-policy
+  - iam-role
+
+# Categories of this project
+categories:
+  - terraform-modules/kops-kubernetes
+
+# Logo for this project
+#logo: docs/logo.png
+
+# License of this project
+license: "APACHE2"
+
+# Canonical GitHub repo
+github_repo: cloudposse/terraform-aws-kops-efs
+
+# Badges to display
+badges:
+  - name: "Build Status"
+    image: "https://travis-ci.org/cloudposse/terraform-aws-kops-efs.svg?branch=master"
+    url: "https://travis-ci.org/cloudposse/terraform-aws-kops-efs"
+  - name: "Latest Release"
+    image: "https://img.shields.io/github/release/cloudposse/terraform-aws-kops-efs.svg"
+    url: "https://github.com/cloudposse/terraform-aws-kops-efs/releases/latest"
+  - name: "Slack Community"
+    image: "https://slack.cloudposse.com/badge.svg"
+    url: "https://slack.cloudposse.com"
+
+related:
+  - name: "terraform-aws-kops-metadata"
+    description: "Terraform module to lookup resources within a Kops cluster for easier integration with Terraform"
+    url: "https://github.com/cloudposse/terraform-aws-kops-metadata"
+  - name: "terraform-aws-kops-ecr"
+    description: "Terraform module to provision an ECR repository and grant users and kubernetes nodes access to it."
+    url: "https://github.com/cloudposse/terraform-aws-kops-ecr"
+  - name: "terraform-aws-kops-state-backend"
+    description: "Easily bootstrap kops clusters (DNS & S3 Bucket)"
+    url: "https://github.com/cloudposse/terraform-aws-kops-state-backend"
+  - name: "terraform-aws-kops-vpc-peering"
+    description: "Terraform module to create a peering connection between a backing services VPC and a VPC created by Kops"
+    url: "https://github.com/cloudposse/terraform-aws-kops-vpc-peering"
+  - name: "terraform-aws-kops-route53"
+    description: "Terraform module to lookup the IAM role associated with `kops` masters, and attach an IAM policy to the role with permissions to modify Route53 record sets"
+    url: "https://github.com/cloudposse/terraform-aws-kops-route53"
+  - name: "terraform-aws-kops-vault-backend"
+    description: "Terraform module to provision an S3 bucket for HashiCorp Vault secrets storage, and an IAM role and policy with permissions for Kops nodes to access the bucket"
+    url: "https://github.com/cloudposse/terraform-aws-kops-vault-backend"
+  - name: "terraform-aws-kops-chart-repo"
+    description: "Terraform module to provision an S3 bucket for Helm chart repository, and an IAM role and policy with permissions for Kops nodes to access the bucket"
+    url: "https://github.com/cloudposse/terraform-aws-kops-chart-repo"
+
+# Short description of this project
+description: |-
+  Terraform module to provision an IAM role for `efs-provider` running in a Kops cluster, and attach an IAM policy to the role with permissions to mount/modify EFS.
+
+
+  ## Overview
+
+  This module assumes you are running [efs-provider](https://github.com/kubernetes-incubator/external-storage/tree/master/aws/efs) in a Kops cluster.
+
+  It will provision an IAM role with the required permissions and grant the Kops pods the permission to assume it.
+
+  This is useful to mount EFS targets into running Kubernetes pods.
+
+  The module uses [terraform-aws-kops-metadata](https://github.com/cloudposse/terraform-aws-kops-metadata) to lookup resources within a Kops cluster for easier integration with Terraform.
+
+
+# How to use this project
+usage: |-
+  ```hcl
+  module "kops_efs" {
+    source       = "git::https://github.com/cloudposse/terraform-aws-kops-efs.git?ref=master"
+    namespace    = "eg"
+    stage        = "prod"
+    name         = "efs-provider"
+    cluster_name = "us-east-1.cloudposse.co"
+    masters_name = "masters"
+    nodes_name   = "nodes"  
+
+    tags = {
+      Cluster = "us-east-1.cloudposse.co"
+    }
+  }
+  ```
+
+include:
+  - "docs/targets.md"
+  - "docs/terraform.md"
+
+# Contributors to this project
+contributors:
+  - name: "Igor Rodionov"
+    github: "goruha"
+  - name: "Andriy Knysh"
+    github: "aknysh"
+  - name: "Josh Myers"
+    github: "joshmyers"
