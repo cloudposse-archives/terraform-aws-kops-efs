@@ -26,6 +26,19 @@ resource "aws_iam_role" "default" {
   assume_role_policy = "${data.aws_iam_policy_document.assume_role.json}"
 }
 
+module "efs" {
+  source             = "git::https://github.com/cloudposse/terraform-aws-efs.git?ref=tags/0.7.1"
+  namespace          = "${var.namespace}"
+  stage              = "${var.stage}"
+  name               = "${var.name}"
+  aws_region         = "${var.region}"
+  vpc_id             = "${module.kops_metadata.vpc_id}"
+  subnets            = ["${module.kops_metadata.private_subnet_ids}"]
+  availability_zones = ["${var.availability_zones}"]
+  security_groups    = ["${module.kops_metadata.nodes_security_group_id}"]
+  zone_id            = "${var.zone_id}"
+}
+
 data "aws_iam_policy_document" "assume_role" {
   statement {
     actions = [
