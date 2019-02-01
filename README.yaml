@@ -71,14 +71,14 @@ related:
 
 # Short description of this project
 description: |-
-  Terraform module to provision an IAM role for `efs-provider` running in a Kops cluster, and attach an IAM policy to the role with permissions to mount/modify EFS.
+  Terraform module to provision an EFS cluster and IAM role for `efs-provider` running in a Kops cluster, and attach an IAM policy to the role with permissions to mount/modify EFS.
 
 
   ## Overview
 
   This module assumes you are running [efs-provider](https://github.com/kubernetes-incubator/external-storage/tree/master/aws/efs) in a Kops cluster.
 
-  It will provision an IAM role with the required permissions and grant the Kops pods the permission to assume it.
+  It will provision an EFS cluster and IAM role with the required permissions and grant the Kops pods the permission to assume it.
 
   This is useful to mount EFS targets into running Kubernetes pods.
 

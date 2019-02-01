@@ -14,6 +14,24 @@ variable "name" {
   description = "Name (e.g. `efs-provider`)"
 }
 
+variable "region" {
+  type        = "string"
+  default     = "us-west-2"
+  description = "AWS region"
+}
+
+variable "availability_zones" {
+  type        = "list"
+  description = "List of availability zones in which to provision the cluster (should be an odd number to avoid split-brain)."
+  default     = []
+}
+
+variable "zone_id" {
+  type        = "string"
+  default     = ""
+  description = "Route53 parent zone ID. If provided (not empty), the module will create sub-domain DNS records for the DB master and replicas"
+}
+
 variable "delimiter" {
   type        = "string"
   default     = "-"
