@@ -1,5 +1,6 @@
 module "label" {
   source     = "git::https://github.com/cloudposse/terraform-null-label.git?ref=tags/0.3.3"
+  enabled    = "${var.enabled}"
   namespace  = "${var.namespace}"
   stage      = "${var.stage}"
   name       = "${var.name}"
@@ -10,12 +11,14 @@ module "label" {
 
 module "kops_metadata" {
   source       = "git::https://github.com/cloudposse/terraform-aws-kops-metadata.git?ref=tags/0.1.1"
+  enabled      = "${var.enabled}"
   dns_zone     = "${var.cluster_name}"
   masters_name = "${var.masters_name}"
   nodes_name   = "${var.nodes_name}"
 }
 
 resource "aws_iam_role" "default" {
+  count       = "${var.enabled == "true" ? 1 : 0}"
   name        = "${module.label.id}"
   description = "Role that can be assumed by efs-provider"
 
@@ -28,6 +31,7 @@ resource "aws_iam_role" "default" {
 
 module "efs" {
   source             = "git::https://github.com/cloudposse/terraform-aws-efs.git?ref=tags/0.7.1"
+  enabled            = "${var.enabled}"
   namespace          = "${var.namespace}"
   stage              = "${var.stage}"
   name               = "${var.name}"
@@ -64,6 +68,7 @@ data "aws_iam_policy_document" "assume_role" {
 }
 
 resource "aws_iam_role_policy_attachment" "default" {
+  count      = "${var.enabled == "true" ? 1 : 0}"
   role       = "${aws_iam_role.default.name}"
   policy_arn = "${var.policy_arn}"
 

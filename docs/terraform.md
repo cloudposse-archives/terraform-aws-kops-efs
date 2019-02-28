@@ -1,4 +1,3 @@
-
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -7,6 +6,7 @@
 | availability_zones | List of availability zones in which to provision the cluster (should be an odd number to avoid split-brain). | list | `<list>` | no |
 | cluster_name | Kops cluster name (e.g. `us-east-1.cloudposse.co` or `cluster-1.cloudposse.co`) | string | - | yes |
 | delimiter | Delimiter to be used between `namespace`, `stage`, `name` and `attributes` | string | `-` | no |
+| enabled | Set to false to prevent the module from creating any resources | string | `true` | no |
 | masters_name | Kops masters subdomain name in the cluster DNS zone | string | `masters` | no |
 | name | Name (e.g. `efs-provider`) | string | `efs-provider` | no |
 | namespace | Namespace (e.g. `eg` or `cp`) | string | - | yes |
