@@ -30,7 +30,7 @@ resource "aws_iam_role" "default" {
 }
 
 module "efs" {
-  source             = "git::https://github.com/cloudposse/terraform-aws-efs.git?ref=tags/0.7.1"
+  source             = "git::https://github.com/cloudposse/terraform-aws-efs.git?ref=tags/0.8.1"
   enabled            = "${var.enabled}"
   namespace          = "${var.namespace}"
   stage              = "${var.stage}"
