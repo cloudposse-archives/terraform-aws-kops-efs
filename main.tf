@@ -10,11 +10,16 @@ module "label" {
 }
 
 module "kops_metadata" {
-  source       = "git::https://github.com/cloudposse/terraform-aws-kops-metadata.git?ref=tags/0.1.1"
+  source       = "git::https://github.com/cloudposse/terraform-aws-kops-data-network.git?ref=tags/0.1.1"
   enabled      = "${var.enabled}"
-  dns_zone     = "${var.cluster_name}"
-  masters_name = "${var.masters_name}"
-  nodes_name   = "${var.nodes_name}"
+  cluster_name = "${var.cluster_name}"
+  vpc_id       = "${var.vpc_id}"
+}
+
+module "kops_iam_metadata" {
+  source       = "git::https://github.com/cloudposse/terraform-aws-kops-data-iam.git?ref=tags/0.1.0"
+  enabled      = "${var.enabled}"
+  cluster_name = "${var.cluster_name}"
 }
 
 resource "aws_iam_role" "default" {
@@ -58,8 +63,8 @@ data "aws_iam_policy_document" "assume_role" {
       type = "AWS"
 
       identifiers = [
-        "${module.kops_metadata.masters_role_arn}",
-        "${module.kops_metadata.nodes_role_arn}",
+        "${module.kops_iam_metadata.masters_role_arn}",
+        "${module.kops_iam_metadata.nodes_role_arn}",
       ]
     }
 

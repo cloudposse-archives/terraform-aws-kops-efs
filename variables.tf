@@ -61,16 +61,9 @@ variable "cluster_name" {
   description = "Kops cluster name (e.g. `us-east-1.cloudposse.co` or `cluster-1.cloudposse.co`)"
 }
 
-variable "masters_name" {
-  type        = "string"
-  default     = "masters"
-  description = "Kops masters subdomain name in the cluster DNS zone"
-}
-
-variable "nodes_name" {
-  type        = "string"
-  default     = "nodes"
-  description = "Kops nodes subdomain name in the cluster DNS zone"
+variable "vpc_id" {
+  default     = ""
+  description = "The kops VPC ID"
 }
 
 variable "policy_arn" {
