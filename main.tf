@@ -22,7 +22,6 @@ module "kops_iam_metadata" {
   cluster_name = "${var.cluster_name}"
 }
 
-
 resource "aws_iam_role" "default" {
   count       = "${var.enabled == "true" ? 1 : 0}"
   name        = "${module.label.id}"
