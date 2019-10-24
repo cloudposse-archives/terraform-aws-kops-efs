@@ -71,3 +71,26 @@ variable "policy_arn" {
   default     = "arn:aws:iam::aws:policy/AmazonElasticFileSystemFullAccess"
   description = "IAM policy to grant for the efs-provider"
 }
+
+variable "encrypted" {
+  type        = "string"
+  description = "If true, the disk will be encrypted"
+  default     = "false"
+}
+
+variable "performance_mode" {
+  type        = "string"
+  description = "The file system performance mode. Can be either `generalPurpose` or `maxIO`"
+  default     = "generalPurpose"
+}
+
+variable "provisioned_throughput_in_mibps" {
+  default     = 0
+  description = "The throughput, measured in MiB/s, that you want to provision for the file system. Only applicable with throughput_mode set to provisioned"
+}
+
+variable "throughput_mode" {
+  type        = "string"
+  description = "Throughput mode for the file system. Defaults to bursting. Valid values: bursting, provisioned. When using provisioned, also set provisioned_throughput_in_mibps"
+  default     = "bursting"
+}
