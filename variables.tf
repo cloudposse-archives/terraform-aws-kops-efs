@@ -72,7 +72,6 @@ variable "policy_arn" {
   description = "IAM policy to grant for the efs-provider"
 }
 
-
 variable "encrypted" {
   type        = "string"
   description = "If true, the disk will be encrypted"

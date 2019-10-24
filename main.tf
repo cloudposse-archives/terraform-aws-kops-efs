@@ -49,8 +49,8 @@ module "efs" {
   encrypted          = "${var.encrypted}"
   performance_mode   = "${var.performance_mode}"
 
-  throughput_mode                   = "${var.throughput_mode}"
-  provisioned_throughput_in_mibps   = "${var.provisioned_throughput_in_mibps}"
+  throughput_mode                 = "${var.throughput_mode}"
+  provisioned_throughput_in_mibps = "${var.provisioned_throughput_in_mibps}"
 }
 
 data "aws_iam_policy_document" "assume_role" {
