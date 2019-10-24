@@ -53,6 +53,11 @@ We literally have [*hundreds of terraform modules*][terraform_modules] that are 
 
 ## Usage
 
+
+**IMPORTANT:** The `master` branch is used in `source` just as an example. In your code, do not pin to `master` because there may be breaking changes between releases.
+Instead pin to the release tag (e.g. `?ref=tags/x.y.z`) of one of our [latest releases](https://github.com/cloudposse/terraform-aws-kops-efs/releases).
+
+
 ```hcl
 module "kops_efs" {
   source       = "git::https://github.com/cloudposse/terraform-aws-kops-efs.git?ref=master"
@@ -93,14 +98,17 @@ Available targets:
 | cluster_name | Kops cluster name (e.g. `us-east-1.cloudposse.co` or `cluster-1.cloudposse.co`) | string | - | yes |
 | delimiter | Delimiter to be used between `namespace`, `stage`, `name` and `attributes` | string | `-` | no |
 | enabled | Set to false to prevent the module from creating any resources | string | `true` | no |
-| masters_name | Kops masters subdomain name in the cluster DNS zone | string | `masters` | no |
+| encrypted | If true, the disk will be encrypted | string | `false` | no |
 | name | Name (e.g. `efs-provider`) | string | `efs-provider` | no |
 | namespace | Namespace (e.g. `eg` or `cp`) | string | - | yes |
-| nodes_name | Kops nodes subdomain name in the cluster DNS zone | string | `nodes` | no |
+| performance_mode | The file system performance mode. Can be either `generalPurpose` or `maxIO` | string | `generalPurpose` | no |
 | policy_arn | IAM policy to grant for the efs-provider | string | `arn:aws:iam::aws:policy/AmazonElasticFileSystemFullAccess` | no |
+| provisioned_throughput_in_mibps | The throughput, measured in MiB/s, that you want to provision for the file system. Only applicable with throughput_mode set to provisioned | string | `0` | no |
 | region | AWS region | string | `us-west-2` | no |
 | stage | Stage (e.g. `prod`, `dev`, `staging`) | string | - | yes |
 | tags | Additional tags (e.g. map(`Cluster`,`us-east-1.cloudposse.co`) | map | `<map>` | no |
+| throughput_mode | Throughput mode for the file system. Defaults to bursting. Valid values: bursting, provisioned. When using provisioned, also set provisioned_throughput_in_mibps | string | `bursting` | no |
+| vpc_id | The kops VPC ID | string | `` | no |
 | zone_id | Route53 parent zone ID. If provided (not empty), the module will create sub-domain DNS records for the DB master and replicas | string | `` | no |
 
 ## Outputs
@@ -264,11 +272,11 @@ Check out [our other projects][github], [follow us on twitter][twitter], [apply 
 |---|---|---|
 
   [goruha_homepage]: https://github.com/goruha
-  [goruha_avatar]: https://github.com/goruha.png?size=150
+  [goruha_avatar]: https://img.cloudposse.com/150x150/https://github.com/goruha.png
   [aknysh_homepage]: https://github.com/aknysh
-  [aknysh_avatar]: https://github.com/aknysh.png?size=150
+  [aknysh_avatar]: https://img.cloudposse.com/150x150/https://github.com/aknysh.png
   [joshmyers_homepage]: https://github.com/joshmyers
-  [joshmyers_avatar]: https://github.com/joshmyers.png?size=150
+  [joshmyers_avatar]: https://img.cloudposse.com/150x150/https://github.com/joshmyers.png
 
 
 

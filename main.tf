@@ -35,7 +35,7 @@ resource "aws_iam_role" "default" {
 }
 
 module "efs" {
-  source             = "git::https://github.com/cloudposse/terraform-aws-efs.git?ref=tags/0.8.1"
+  source             = "git::https://github.com/cloudposse/terraform-aws-efs.git?ref=tags/0.9.0"
   enabled            = "${var.enabled}"
   namespace          = "${var.namespace}"
   stage              = "${var.stage}"
@@ -46,6 +46,11 @@ module "efs" {
   availability_zones = ["${var.availability_zones}"]
   security_groups    = ["${module.kops_metadata.nodes_security_group_id}"]
   zone_id            = "${var.zone_id}"
+  encrypted          = "${var.encrypted}"
+  performance_mode   = "${var.performance_mode}"
+
+  throughput_mode                   = "${var.throughput_mode}"
+  provisioned_throughput_in_mibps   = "${var.provisioned_throughput_in_mibps}"
 }
 
 data "aws_iam_policy_document" "assume_role" {
