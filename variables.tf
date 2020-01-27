@@ -94,3 +94,8 @@ variable "throughput_mode" {
   description = "Throughput mode for the file system. Defaults to bursting. Valid values: bursting, provisioned. When using provisioned, also set provisioned_throughput_in_mibps"
   default     = "bursting"
 }
+
+variable "iam_role_max_session_duration" {
+  default     = 3600
+  description = "The maximum session duration (in seconds) for the role. Can have a value from 1 hour to 12 hours"
+}
