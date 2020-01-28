@@ -8,6 +8,7 @@
 | delimiter | Delimiter to be used between `namespace`, `stage`, `name` and `attributes` | string | `-` | no |
 | enabled | Set to false to prevent the module from creating any resources | string | `true` | no |
 | encrypted | If true, the disk will be encrypted | string | `false` | no |
+| iam_role_max_session_duration | The maximum session duration (in seconds) for the role. Can have a value from 1 hour to 12 hours | string | `3600` | no |
 | name | Name (e.g. `efs-provider`) | string | `efs-provider` | no |
 | namespace | Namespace (e.g. `eg` or `cp`) | string | - | yes |
 | performance_mode | The file system performance mode. Can be either `generalPurpose` or `maxIO` | string | `generalPurpose` | no |

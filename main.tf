@@ -27,6 +27,8 @@ resource "aws_iam_role" "default" {
   name        = "${module.label.id}"
   description = "Role that can be assumed by efs-provider"
 
+  max_session_duration = "${var.iam_role_max_session_duration}"
+
   lifecycle {
     create_before_destroy = true
   }
